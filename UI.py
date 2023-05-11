@@ -6,8 +6,6 @@ from tkinter import StringVar, filedialog,messagebox
 import urllib.request as urlreq
 from pytube import YouTube
 
-
-
 global path,url,download_videoaudio_button,download_audio_button,download_video_button
 count=0
 
@@ -26,7 +24,7 @@ topframe.pack()
 label=tk.Label(topframe,text="YOU_tube video URL:",font=('TimesNewRoman',15,'bold italic'),background="brown",fg="white")
 label.pack(side="top", pady=("50","10"))
 
-
+#download audio
 def download_audio():
     try:
         path[0]
@@ -37,6 +35,8 @@ def download_audio():
         audio.download(path)
         anametwp=f"{path}/{audio.default_filename.removesuffix('.mp4')}_audioonly.mp3"
         os.rename(path+"/"+audio.default_filename,anametwp)
+
+#download video without audio
 def download_video():
     try:
         path[0]
@@ -48,8 +48,7 @@ def download_video():
         aname = f"{path}/{videowoaudio.default_filename.removesuffix('.mp4')}_videowoaudio.mp4"
         os.rename(path+"/"+videowoaudio.default_filename, aname)
 
-
-
+#download video with audio
 def download_videaudio():
     try:
         path[0]
@@ -62,7 +61,7 @@ def download_videaudio():
         os.rename(path+"/"+video.default_filename, vname)
 
 
-
+#check if youtube link is valid
 label_valid=tk.Label(topframe,text="",font=('TimesNewRoman',15,'bold'),background="brown",fg="green")
 label_valid.place(y="20",x="170",anchor="center")
 
@@ -107,13 +106,7 @@ def check_link():
             download_videoaudio_button.place_forget()
         else:
             label_valid.config(text="NOT VALID URL",foreground="red")
-        
 
-
-       
-
-    
-    
 
 link=StringVar()
 textbox=tk.Entry(topframe,width="50",textvariable=link)
@@ -125,8 +118,6 @@ check_button.pack(side="top",pady=("10","0"))
 
 label=tk.Label(topframe,text="download location",font=('TimesNewRoman',14,'bold'),background="brown",fg="white")
 label.pack(side="left",pady=("10","0"),padx=("60","40"))
-
-
 
 #select location
 def select_location():
@@ -141,19 +132,7 @@ select_button=tk.Button(topframe,command=select_location,text="select",fg="black
                         ,background="white",highlightbackground="black")
 select_button.pack(side="left",pady=("10","0"))
 
-
-
-
-
-
-#bottomframe
-#bottomframe = tk.Frame(window,background="brown")
-#bottomframe.pack( side="bottom" )
-
-
-
-
-
+#check connection
 def check_int_conn()->bool:
     url="https://www.google.com/"
     try:
@@ -162,14 +141,6 @@ def check_int_conn()->bool:
     except:
         messagebox.showerror("No internet connection", "You have no internet connection!")
         return False
-
-
-
-
-
-
-
-
 
 
 check_int_conn()
